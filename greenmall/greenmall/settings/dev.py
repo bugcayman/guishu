@@ -31,7 +31,8 @@ SECRET_KEY = '!+%+2y3+jcoag7*#w_s!vsbv_bm_60^l0yuxnombn$l=@hl381'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#允许哪些域名可以访问我的后端
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework', #DRF
-    
+    'corsheaders',#cors
     
     'users.apps.UsersConfig' ,#注册子应用
     'verifications.apps.VerificationsConfig',#短信验证码
@@ -53,6 +54,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',#最外层中间件
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -170,7 +173,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "session"
 
 
-# 日日志
+# 日志
 LOGGING = {
 'version': 1,
 'disable_existing_loggers': False, # 是否禁用用已经存在的日日志器器
@@ -221,3 +224,12 @@ REST_FRAMEWORK = {
 
 # AUTH_USER_MODEL = 'greenmall.apps.users.models.User'
 AUTH_USER_MODEL = 'users.User'
+
+#追加白名单
+CORS_ORIGIN_WHITELIST = (
+    '127.0.0.1:8000',
+    'localhost:8080',
+    'www.greenmall.site:8080',
+    'api.greenmall.site:8000',
+)
+CORS_ALLOW_CREDENTIALS = True #允许携带cookie

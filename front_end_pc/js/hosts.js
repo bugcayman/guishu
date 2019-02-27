@@ -1,0 +1,1 @@
+var host = 'http://api.greenmall.site.8000'//定义后端变量
